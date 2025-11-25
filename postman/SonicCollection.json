@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "6f4573ba-7ab8-478b-a608-67c5f22e86ec",
+		"name": "Sonic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41684914"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Get profile date",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/profile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"profile"
+									]
+								}
+							},
+							{
+								"name": "Update profile date",
+								"request": {
+									"auth": {
+										"type": "bearer",
+										"bearer": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "string"
+											}
+										]
+									},
+									"method": "POST",
+									"header": [],
+									"body": {
+										"mode": "formdata",
+										"formdata": [
+											{
+												"key": "name",
+												"value": "Heshmat",
+												"type": "text"
+											},
+											{
+												"key": "email",
+												"value": "Heshmatmath@gmail.com",
+												"type": "text"
+											},
+											{
+												"key": "phone",
+												"value": "01559333247",
+												"type": "text"
+											},
+											{
+												"key": "image",
+												"type": "file",
+												"src": "/C:/Users/sh/OneDrive - Nahda University/Desktop/518996345_1047912677467220_6211397721299950867_n.jpg"
+											},
+											{
+												"key": "address",
+												"value": "123 Main St Apartment 4A,New York, NY ",
+												"type": "text"
+											}
+										]
+									},
+									"url": {
+										"raw": "{{local}}/update-profile",
+										"host": [
+											"{{local}}"
+										],
+										"path": [
+											"update-profile"
+										]
+								}
+							}
+						]
+					},
+ (file truncated)
