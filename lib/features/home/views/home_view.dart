@@ -5,6 +5,7 @@ import '../widgets/search_bar_widget.dart';
 import '../widgets/category_chip.dart';
 import '../widgets/product_card.dart';
 import '../widgets/banner_carousel.dart';
+import '../widgets/filter_bottom_sheet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -138,6 +139,14 @@ class _HomeViewState extends State<HomeView> {
               child: SearchBarWidget(
                 onTap: () {
                   // Navigate to search screen
+                },
+                onFilterTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => const FilterBottomSheet(),
+                  );
                 },
               ),
             ),

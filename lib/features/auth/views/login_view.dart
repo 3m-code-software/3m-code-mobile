@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:huungry/core/theme/app_colors.dart';
 import 'package:huungry/core/network/api_error.dart';
@@ -77,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -90,42 +91,62 @@ class _LoginViewState extends State<LoginView> {
 
                 // Logo/Icon
                 Center(
-                  child: Container(
-                    width: 80.w,
-                    height: 80.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBlue.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Icon(
-                      Icons.shopping_bag_outlined,
-                      size: 40.sp,
-                      color: AppColors.primaryBlue,
-                    ),
-                  ),
-                ),
+                      child: Container(
+                        width: 80.w,
+                        height: 80.h,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryOrange.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Icon(
+                          Icons.restaurant_menu_rounded,
+                          size: 40.sp,
+                          color: AppColors.primaryOrange,
+                        ),
+                      ),
+                    )
+                    .animate()
+                    .scale(duration: 600.ms, curve: Curves.easeOutBack)
+                    .fadeIn(duration: 500.ms),
 
                 SizedBox(height: 32.h),
 
                 // Welcome text
                 Text(
-                  'Welcome back!',
-                  style: TextStyle(
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
+                      'Welcome back!',
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimaryLight,
+                      ),
+                    )
+                    .animate()
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 500.ms,
+                      curve: Curves.easeOut,
+                    )
+                    .fadeIn(),
 
                 SizedBox(height: 8.h),
 
                 Text(
-                  'Sign in to your account to continue',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
+                      'Sign in to your account to continue',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: AppColors.textSecondaryLight,
+                      ),
+                    )
+                    .animate()
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 500.ms,
+                      delay: 100.ms,
+                      curve: Curves.easeOut,
+                    )
+                    .fadeIn(),
 
                 SizedBox(height: 32.h),
 
@@ -137,7 +158,7 @@ class _LoginViewState extends State<LoginView> {
                   keyboardType: TextInputType.emailAddress,
                   prefixIcon: Icon(
                     Icons.email_outlined,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -148,7 +169,7 @@ class _LoginViewState extends State<LoginView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -160,14 +181,14 @@ class _LoginViewState extends State<LoginView> {
                   obscureText: !_isPasswordVisible,
                   prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      color: AppColors.textSecondary,
+                      color: AppColors.textSecondaryLight,
                     ),
                     onPressed: () {
                       setState(() {
@@ -184,7 +205,7 @@ class _LoginViewState extends State<LoginView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -204,7 +225,10 @@ class _LoginViewState extends State<LoginView> {
                                 _rememberMe = value ?? false;
                               });
                             },
-                            activeColor: AppColors.primaryBlue,
+                            activeColor: AppColors.primaryOrange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
                           ),
                         ),
                         SizedBox(width: 8.w),
@@ -212,7 +236,7 @@ class _LoginViewState extends State<LoginView> {
                           'Remember me',
                           style: TextStyle(
                             fontSize: 14.sp,
-                            color: AppColors.textSecondary,
+                            color: AppColors.textSecondaryLight,
                           ),
                         ),
                       ],
@@ -230,13 +254,13 @@ class _LoginViewState extends State<LoginView> {
                         'Forgot Password?',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.primaryBlue,
+                          color: AppColors.primaryOrange,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: 400.ms),
 
                 SizedBox(height: 24.h),
 
@@ -245,7 +269,7 @@ class _LoginViewState extends State<LoginView> {
                   text: 'Sign In',
                   onPressed: _handleLogin,
                   isLoading: _isLoading,
-                ),
+                ).animate().fadeIn(delay: 500.ms).scale(),
 
                 SizedBox(height: 16.h),
 
@@ -254,7 +278,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     Expanded(
                       child: Divider(
-                        color: AppColors.inputBorder,
+                        color: AppColors.borderLight,
                         thickness: 1,
                       ),
                     ),
@@ -264,26 +288,46 @@ class _LoginViewState extends State<LoginView> {
                         'OR',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.textSecondary,
+                          color: AppColors.textSecondaryLight,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Divider(
-                        color: AppColors.inputBorder,
+                        color: AppColors.borderLight,
                         thickness: 1,
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: 600.ms),
 
                 SizedBox(height: 16.h),
+
+                // Social Login
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSocialButton(
+                      icon:
+                          'assets/icon/google.png', // Ensure asset exists or use Icon
+                      onTap: () {},
+                    ),
+                    SizedBox(width: 16.w),
+                    _buildSocialButton(
+                      icon:
+                          'assets/icon/apple.png', // Ensure asset exists or use Icon
+                      onTap: () {},
+                    ),
+                  ],
+                ).animate().fadeIn(delay: 650.ms),
+
+                SizedBox(height: 24.h),
 
                 // Continue as Guest
                 SecondaryButton(
                   text: 'Continue as Guest',
                   onPressed: _handleGuestLogin,
-                ),
+                ).animate().fadeIn(delay: 700.ms),
 
                 SizedBox(height: 24.h),
 
@@ -295,7 +339,7 @@ class _LoginViewState extends State<LoginView> {
                       'Don\'t have an account? ',
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.textSecondary,
+                        color: AppColors.textSecondaryLight,
                       ),
                     ),
                     TextButton(
@@ -309,18 +353,41 @@ class _LoginViewState extends State<LoginView> {
                         'Sign Up',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.primaryBlue,
+                          color: AppColors.primaryOrange,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: 800.ms),
 
                 SizedBox(height: 24.h),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSocialButton({
+    required String icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 60.w,
+        height: 60.h,
+        decoration: BoxDecoration(
+          color: AppColors.inputBackgroundLight,
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.borderLight),
+        ),
+        padding: EdgeInsets.all(12.w),
+        child: Image.asset(
+          icon,
+          errorBuilder: (c, e, s) => const Icon(Icons.error),
         ),
       ),
     );

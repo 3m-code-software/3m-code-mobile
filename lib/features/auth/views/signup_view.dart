@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:huungry/core/theme/app_colors.dart';
 import 'package:huungry/core/network/api_error.dart';
@@ -83,12 +84,12 @@ class _SignupViewState extends State<SignupView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back_ios, color: AppColors.textPrimaryLight),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -104,23 +105,40 @@ class _SignupViewState extends State<SignupView> {
 
                 // Title
                 Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
+                      'Create Account',
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimaryLight,
+                      ),
+                    )
+                    .animate()
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 500.ms,
+                      curve: Curves.easeOut,
+                    )
+                    .fadeIn(),
 
                 SizedBox(height: 8.h),
 
                 Text(
-                  'Sign up to get started',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
+                      'Sign up to get started',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: AppColors.textSecondaryLight,
+                      ),
+                    )
+                    .animate()
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 500.ms,
+                      delay: 100.ms,
+                      curve: Curves.easeOut,
+                    )
+                    .fadeIn(),
 
                 SizedBox(height: 32.h),
 
@@ -131,7 +149,7 @@ class _SignupViewState extends State<SignupView> {
                   controller: _nameController,
                   prefixIcon: Icon(
                     Icons.person_outline,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -142,7 +160,7 @@ class _SignupViewState extends State<SignupView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -154,7 +172,7 @@ class _SignupViewState extends State<SignupView> {
                   keyboardType: TextInputType.emailAddress,
                   prefixIcon: Icon(
                     Icons.email_outlined,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -165,7 +183,7 @@ class _SignupViewState extends State<SignupView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -177,14 +195,14 @@ class _SignupViewState extends State<SignupView> {
                   obscureText: !_isPasswordVisible,
                   prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      color: AppColors.textSecondary,
+                      color: AppColors.textSecondaryLight,
                     ),
                     onPressed: () {
                       setState(() {
@@ -201,7 +219,7 @@ class _SignupViewState extends State<SignupView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -213,14 +231,14 @@ class _SignupViewState extends State<SignupView> {
                   obscureText: !_isConfirmPasswordVisible,
                   prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryLight,
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isConfirmPasswordVisible
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      color: AppColors.textSecondary,
+                      color: AppColors.textSecondaryLight,
                     ),
                     onPressed: () {
                       setState(() {
@@ -237,7 +255,7 @@ class _SignupViewState extends State<SignupView> {
                     }
                     return null;
                   },
-                ),
+                ).animate().fadeIn(delay: 500.ms).slideY(begin: 0.2, end: 0),
 
                 SizedBox(height: 16.h),
 
@@ -254,7 +272,10 @@ class _SignupViewState extends State<SignupView> {
                             _agreeToTerms = value ?? false;
                           });
                         },
-                        activeColor: AppColors.primaryBlue,
+                        activeColor: AppColors.primaryOrange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
                       ),
                     ),
                     SizedBox(width: 8.w),
@@ -264,13 +285,13 @@ class _SignupViewState extends State<SignupView> {
                           text: 'I agree to the ',
                           style: TextStyle(
                             fontSize: 14.sp,
-                            color: AppColors.textSecondary,
+                            color: AppColors.textSecondaryLight,
                           ),
                           children: [
                             TextSpan(
                               text: 'Terms & Conditions',
                               style: TextStyle(
-                                color: AppColors.primaryBlue,
+                                color: AppColors.primaryOrange,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -279,7 +300,7 @@ class _SignupViewState extends State<SignupView> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: 600.ms),
 
                 SizedBox(height: 32.h),
 
@@ -288,7 +309,25 @@ class _SignupViewState extends State<SignupView> {
                   text: 'Create Account',
                   onPressed: _handleSignup,
                   isLoading: _isLoading,
-                ),
+                ).animate().fadeIn(delay: 700.ms).scale(),
+
+                SizedBox(height: 24.h),
+
+                // Social Login
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSocialButton(
+                      icon: 'assets/icon/google.png',
+                      onTap: () {},
+                    ),
+                    SizedBox(width: 16.w),
+                    _buildSocialButton(
+                      icon: 'assets/icon/apple.png',
+                      onTap: () {},
+                    ),
+                  ],
+                ).animate().fadeIn(delay: 750.ms),
 
                 SizedBox(height: 24.h),
 
@@ -300,7 +339,7 @@ class _SignupViewState extends State<SignupView> {
                       'Already have an account? ',
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.textSecondary,
+                        color: AppColors.textSecondaryLight,
                       ),
                     ),
                     TextButton(
@@ -314,18 +353,41 @@ class _SignupViewState extends State<SignupView> {
                         'Sign In',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.primaryBlue,
+                          color: AppColors.primaryOrange,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: 800.ms),
 
                 SizedBox(height: 24.h),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSocialButton({
+    required String icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 60.w,
+        height: 60.h,
+        decoration: BoxDecoration(
+          color: AppColors.inputBackgroundLight,
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.borderLight),
+        ),
+        padding: EdgeInsets.all(12.w),
+        child: Image.asset(
+          icon,
+          errorBuilder: (c, e, s) => const Icon(Icons.error),
         ),
       ),
     );

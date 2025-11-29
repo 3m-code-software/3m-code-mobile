@@ -4,11 +4,13 @@ import 'package:huungry/core/theme/app_colors.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final VoidCallback? onTap;
+  final VoidCallback? onFilterTap;
   final String hintText;
 
   const SearchBarWidget({
     super.key,
     this.onTap,
+    this.onFilterTap,
     this.hintText = 'Search products...',
   });
 
@@ -19,24 +21,35 @@ class SearchBarWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: AppColors.inputBackground,
+          color: AppColors.inputBackgroundLight,
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.inputBorder),
+          border: Border.all(color: AppColors.borderLight),
         ),
         child: Row(
           children: [
-            Icon(Icons.search, color: AppColors.textSecondary, size: 24.sp),
+            Icon(
+              Icons.search,
+              color: AppColors.textSecondaryLight,
+              size: 24.sp,
+            ),
             SizedBox(width: 12.w),
             Expanded(
               child: Text(
                 hintText,
                 style: TextStyle(
                   fontSize: 16.sp,
-                  color: AppColors.textSecondary,
+                  color: AppColors.textSecondaryLight,
                 ),
               ),
             ),
-            Icon(Icons.tune, color: AppColors.textSecondary, size: 24.sp),
+            GestureDetector(
+              onTap: onFilterTap,
+              child: Icon(
+                Icons.tune,
+                color: AppColors.primaryOrange,
+                size: 24.sp,
+              ),
+            ),
           ],
         ),
       ),

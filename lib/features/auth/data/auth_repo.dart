@@ -6,16 +6,18 @@ import 'package:huungry/core/network/api_exceptions.dart';
 import 'package:huungry/core/network/api_service.dart';
 import 'package:huungry/core/utils/pref_helper.dart';
 import 'package:huungry/features/auth/data/user_model.dart';
+import 'package:logger/logger.dart';
 
 class AuthRepo {
   ApiService apiService = ApiService();
   bool isGuest = false;
   UserModel? _currentUser;
+  final Logger _logger = Logger();
 
   /// Login
   Future<UserModel?> login(String email, String password) async {
     try {
-      final response = await apiService.post(Endpoints.login, {
+      final response = await apiService.post(ApiEndpoints.login, {
         'email': email,
         'password': password,
       });
@@ -56,7 +58,7 @@ class AuthRepo {
   /// Signup
   Future<UserModel?> signup(String name, String email, String password) async {
     try {
-      final response = await apiService.post(Endpoints.register, {
+      final response = await apiService.post(ApiEndpoints.register, {
         'name': name,
         'password': password,
         'email': email,
@@ -103,7 +105,7 @@ class AuthRepo {
         return null;
       }
 
-      final response = await apiService.get(Endpoints.profile);
+      final response = await apiService.get(ApiEndpoints.profile);
       final user = UserModel.fromJson(response['data']);
       _currentUser = user;
       return user;
@@ -134,7 +136,10 @@ class AuthRepo {
             filename: 'profile.jpg',
           ),
       });
-      final response = await apiService.post(Endpoints.updateProfile, formData);
+      final response = await apiService.post(
+        ApiEndpoints.updateProfile,
+        formData,
+      );
       if (response is ApiError) {
         throw response;
       }
@@ -164,7 +169,7 @@ class AuthRepo {
 
   /// Logout
   Future<void> logout() async {
-    final response = await apiService.post(Endpoints.logout, {});
+    final response = await apiService.post(ApiEndpoints.logout, {});
     if (response is Map<String, dynamic>) {
       final rawCode = response['code'];
       final int code =
@@ -193,35 +198,22 @@ class AuthRepo {
     final token = await PrefHelper.getToken();
 
     if (token == null || token == 'guest') {
-      if (kDebugMode) {
-        // ignore: avoid_print
-        print('❌ No valid token found - setting as guest');
-      }
+      _logger.i('❌ No valid token found - setting as guest');
       isGuest = true;
       _currentUser = null;
       return null;
     }
-    if (kDebugMode) {
-      // ignore: avoid_print
-      print('✅ Valid token found - attempting to fetch profile');
-    }
+    _logger.i('✅ Valid token found - attempting to fetch profile');
     isGuest = false;
 
     try {
       final user = await getProfileData();
-      if (kDebugMode) {
-        // ignore: avoid_print
-        print('✅ Profile data fetched successfully');
-      }
+      _logger.i('✅ Profile data fetched successfully');
       _currentUser = user;
       return user;
     } catch (e) {
-      if (kDebugMode) {
-        // ignore: avoid_print
-        print('❌ Profile fetch failed: $e');
-        // ignore: avoid_print
-        print('🧹 Clearing invalid token and setting as guest');
-      }
+      _logger.e('❌ Profile fetch failed: $e');
+      _logger.w('🧹 Clearing invalid token and setting as guest');
       await PrefHelper.clearToken();
       isGuest = true;
       _currentUser = null;

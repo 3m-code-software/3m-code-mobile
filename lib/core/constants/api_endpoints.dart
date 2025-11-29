@@ -1,14 +1,8 @@
-class Endpoints {
-  static const String login = '/login';
-  static const String register = '/register';
-  static const String profile = '/profile';
-  static const String updateProfile = '/update-profile';
-  static const String logout = '/logout';
-  static const String categories = '/categories';
-  static const String products = '/products';
-  static const String favorites = '/favorites';
-  static const String toggleFavorite = '/toggle-favorite';
-  static const String toppings = '/toppings';
-  static const String sideOptions = '/side-options';
-  static const String orders = '/orders';
+class ApiEndpoints {
+  static const String login = '/auth/login';
+  static const String register = '/auth/register';
+  static const String profile = '/auth/profile';
+  static const String updateProfile = '/auth/update-profile';
+  static const String logout = '/auth/logout';
+  // Add other endpoints as needed
 }

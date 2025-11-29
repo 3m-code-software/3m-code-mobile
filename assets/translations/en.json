@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "search": "Search",
+  "cart": "Cart",
+  "profile": "Profile",
+  "welcome": "Welcome",
+  "categories": "Categories",
+  "featured_products": "Featured Products",
+  "see_all": "See all",
+  "search_hint": "Search products...",
+  "filter": "Filter",
+  "price_range": "Price Range",
+  "rating": "Rating",
+  "apply": "Apply",
+  "reset": "Reset",
+  "login": "Login",
+  "signup": "Sign Up",
+  "email": "Email",
+  "password": "Password",
+  "skip": "Skip",
+  "get_started": "Get Started",
+  "next": "Next"
+}
